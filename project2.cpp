@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <time.h>
 
 //气球
 typedef struct ball
@@ -27,7 +28,7 @@ void putPoint(double x, double y);			//放置钉子
 BallList *head = NULL;
 double step = 0.01;							//改变气球位置的最小单位
 int num = 0;                                //放置气球的个数
-double sumr = 0;							//用来记录r^2之和
+
 
 int main()
 {
@@ -36,19 +37,24 @@ int main()
 	scanf_s("%d", &ball_num);
 	printf("请输入空间内钉子的数量: ");
 	scanf_s("%d", &point_num);
+	printf("\n");
+	srand(time(NULL));
 	for (i = 0; i < point_num; i++)
 	{
-		printf("请输入第%d个钉子的横纵坐标(其间用空格隔开)：", i + 1);
+		//printf("请输入第%d个钉子的横纵坐标(其间用空格隔开)：", i + 1);
 		double x, y;
-		scanf_s("%lf %lf", &x, &y);
+		//scanf_s("%lf %lf", &x, &y);
+		x = -1+(rand() % 200 + 1)*0.01;
+		y = -1 + (rand() % 200 + 1)*0.01;
+		printf("第%d个钉子的坐标（%lf,%lf）\n", i + 1, x, y);
 		putPoint(x, y);
 	}
-	printf("\n球编号\t x坐标\t y坐标\t 半径\t r^2之和\n");
+	printf("\n球编号\t x坐标\t y坐标\t 半径\t \n");
 	for (i = 0; i < ball_num; i++)
 	{
 		putBall();
 	}
-	printf("\nr^2之和为:\t %lf\n", sumr);
+	
 
 	system("pause");
 	return 0;
@@ -101,8 +107,7 @@ void putBall()
 	{
 		insert(maxBall);
 		num++;
-		sumr += maxBall.r * maxBall.r;
-		printf("%d\t %.3lf\t %.3lf\t %.3lf\t %lf \n", num, maxBall.x, maxBall.y, maxBall.r, sumr);
+		printf("%d\t %.3lf\t %.3lf\t %.3lf\t\n", num, maxBall.x, maxBall.y, maxBall.r);
 	}
 
 	
